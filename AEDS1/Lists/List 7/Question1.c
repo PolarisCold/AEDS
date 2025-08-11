@@ -8,25 +8,34 @@ O programa deverá rejeitar a leitura de valores diferentes de [S/N]. Caso isto 
 deverá repetir a leitura da resposta do usuário.
 */
 #include <stdio.h>
-#include <stdbool.h>
+#include <ctype.h>
 
 void apresentacao();
-bool eh_bissexto();
+int leitura();
+void eh_bissexto(int);
+char continuar();
 
 int main()
 {
-    
+    apresentacao();
+    int ano;
+    char repetir;
+    do
+    {
+        ano = leitura();
+        eh_bissexto(ano);
+        repetir = continuar();
+    }while(repetir == 'S');
     return 0;
 }
 
 void apresentacao()
 {
-
+    printf("\nPrograma de verificacao de ano bissexto!\n");
 }
 
-bool eh_bissexto(int ano)
+void eh_bissexto(int ano)
 {
-    bool bissexto;
 
     if((ano % 4 == 0 && ano %100 != 0) || ano % 400 == 0)
     {
@@ -35,7 +44,35 @@ bool eh_bissexto(int ano)
     {
         printf("%d Nao eh um ano bissexto\n",ano);
     }
+}
 
+int leitura()
+{
+    int ano;
+    printf("por favor, diga o ano que deseja conferir\n");
+    do
+    {
+        scanf("%d", &ano);
+        if(ano < 0)
+        {
+            printf("Nao eh permitido anos negativos, insira um ano positivo\n");
+        }
+    }while(ano < 0);
+    return ano;
+}
 
-    return bissexto;
+char continuar()
+{
+    char repetir;
+    printf("Deseja tentar novamente?\n");
+    do
+    {
+        scanf(" %c", &repetir);
+        repetir = toupper(repetir);
+        if(repetir != 'S' && repetir != 'N')
+        {
+            printf("Por favor, insira uma resposta de S ou N\n");
+        }
+    }while(repetir != 'S' && repetir != 'N');
+    return repetir;
 }
