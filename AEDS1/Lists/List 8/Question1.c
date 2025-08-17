@@ -16,25 +16,36 @@ rep. com teste no final)
 
 void apresentacao();
 int leitura_alunos();
-int leitura();
-char sexo();
-char continuar();
+int leitura_idade();
+char leitura_sexo();
 
 int main()
 {
     apresentacao();
     int qtd_alunos = leitura_alunos();
-    /*float homens
-    float mulheres
-    float maior_D_idade
-    float mais velho
-    float mais novo
-    */
-
-    do
+    int mulher = 0;
+    int dMaior = 0;
+    int maisVelho = 0;
+    int maisNovo = 100;
+    for (int i = 1; i <= qtd_alunos; i++)
     {
+        printf("Analise do %d.o aluno:\n", i);
+        if (leitura_sexo() == 'F')
+            mulher++;
+        int idade = leitura_idade();
 
-    }while(repetir == 'S');
+        if (idade >= 18)
+            dMaior++;
+
+        if (idade > maisVelho)
+            maisVelho = idade;
+        else if (idade < maisNovo)
+            maisNovo = idade;
+    }
+
+    printf("A porcentagem de genero da turma consiste em %.2f%% mulheres e %.2f%% homens\n", ((float)mulher / qtd_alunos) * 100, ((qtd_alunos - (float)mulher) / qtd_alunos) * 100);
+    printf("A quantidade de maiores de idade eh de %.2f%% e de menores %.2f%%\n", ((float)dMaior / qtd_alunos) * 100, ((qtd_alunos - (float)dMaior) / qtd_alunos) * 100);
+    printf("O mais velho de toda turma possui %d anos e o mais novo %d anos\n", maisVelho, maisNovo);
     return 0;
 }
 
@@ -51,41 +62,41 @@ int leitura_alunos()
     {
         printf("Por favor informe a quantidade de alunos;\n");
         scanf("%d", &qtd_alunos);
-        if(qtd_alunos < 0)
+        if (qtd_alunos < 0)
         {
-            printf("Por favor, digite um valor valido\n");
+            printf("Por favor, digite um valor valido[qtd > 0]\n");
         }
-    }while(qtd_alunos < 0);
+    } while (qtd_alunos < 0);
     return qtd_alunos;
 }
 
-int leitura()
+int leitura_idade()
 {
-    int ano;
-    printf("por favor, diga o ano que deseja conferir\n");
+    int idade;
     do
     {
-        scanf("%d", &ano);
-        if(ano < 0)
+        printf("Qual a idade do aluno(a)?\n");
+        scanf("%d", &idade);
+        if (idade < 0 || idade > 150)
         {
-            printf("Nao eh permitido anos negativos, insira um ano positivo\n");
+            printf("Por favor, digite um valor valido[0 - 150]\n");
         }
-    }while(ano < 0);
-    return ano;
+    } while (idade < 0 || idade > 150);
+    return idade;
 }
 
-char continuar()
+char leitura_sexo()
 {
-    char repetir;
-    printf("Deseja tentar novamente?\n");
+    char sexo;
     do
     {
-        scanf(" %c", &repetir);
-        repetir = toupper(repetir);
-        if(repetir != 'S' && repetir != 'N')
+        printf("Qual o sexo do aluno(a)?\n");
+        scanf(" %c", &sexo);
+        sexo = toupper(sexo);
+        if (sexo != 'F' && sexo != 'M')
         {
-            printf("Por favor, insira uma resposta de S ou N\n");
+            printf("Por favor, digite Genero Valido[F - M]\n");
         }
-    }while(repetir != 'S' && repetir != 'N');
-    return repetir;
+    } while (sexo != 'F' && sexo != 'M');
+    return sexo;
 }

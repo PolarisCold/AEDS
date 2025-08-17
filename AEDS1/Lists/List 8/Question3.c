@@ -18,3 +18,36 @@ o Se alguma escola obtiver uma média maior ou igual a 9.0, exiba uma mensagem b
 Requisitos Adicionais:
 • Valide as entradas para garantir que as notas estejam no intervalo permitido
 */
+
+#include <stdio.h>
+
+int leitura_alunos();
+int leitura_notas();
+
+int main()
+{
+
+    return 0;
+}
+
+int leitura_alunos()
+{
+    int qtd;
+    printf("\nPor favor, nos informe a quantidade de alunos.\n");
+    scanf("%d", &qtd);
+    return qtd;
+}
+
+int leitura_notas()
+{
+    int nota;
+    do{
+    printf("Informe o desempenho do aluno(a):\n");
+    scanf("%d", &nota);
+    if (nota < 0 || nota > 100)
+    {
+        printf("valor invalido, por favor insira um valor valido [0 - 100]\n");
+    }
+    }while(nota < 0 || nota > 100);
+    return nota;
+}
