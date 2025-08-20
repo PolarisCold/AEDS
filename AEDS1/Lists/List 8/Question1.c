@@ -26,7 +26,7 @@ int main()
     int mulher = 0;
     int dMaior = 0;
     int maisVelho = 0;
-    int maisNovo = 100;
+    int maisNovo = 150;
     for (int i = 1; i <= qtd_alunos; i++)
     {
         printf("Analise do %d.o aluno:\n", i);
@@ -39,7 +39,7 @@ int main()
 
         if (idade > maisVelho)
             maisVelho = idade;
-        else if (idade < maisNovo)
+        if (idade < maisNovo)
             maisNovo = idade;
     }
 

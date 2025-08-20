@@ -1,4 +1,4 @@
-/* 
+/*
 2. Construir uma nova versão para o seguinte problema: ler a nota obtida por cada aluno da turma. A
 leitura deverá ser interrompida quando for informada uma nota igual a zero (flag). Ao final do programa,
 deverão ser escritos o percentual de alunos aprovados e o percentual de alunos reprovados, sabendo ser
@@ -7,34 +7,49 @@ Domínio da nota: 0..100 – Rejeitar a leitura de valores inválidos (fora do d
 */
 
 #include <stdio.h>
+#include <stdbool.h>
 
-int leitura_alunos();
-int leitura_notas();
+void apresentacao();
+float leitura_nota();
 
 int main()
 {
+    int alunos = 0;
+    int aprovados = 0;
+    float nota;
+    printf("\nVerificador de desempenho escolar.\n");
+    do
+    {
+        printf("Digite a nota do aluno, ou digite 0 para sair do programa.\n");
+        nota = leitura_nota();
 
+        if (nota >= 60)
+            aprovados++;
+
+        if (nota != 0)
+            alunos++;
+
+    } while (nota != 0);
+    if(alunos == 0)
+    {
+        printf("agradecemos por usar nosso programa!\n");
+    }else if(aprovados == 0)
+    {
+        printf("a taxa de reprovacao foi de 100%%");
+    }else{
+        printf("a quantidade de alunos aprovados foi de %.1f%% e de %1.f%% reprovados\n", (((float)aprovados / alunos) * 100), ((((alunos - aprovados) / (float)alunos) * 100)));
+    }
     return 0;
 }
 
-int leitura_alunos()
+float leitura_nota()
 {
-    int qtd;
-    printf("\nPor favor, nos informe a quantidade de alunos.\n");
-    scanf("%d", &qtd);
-    return qtd;
-}
-
-int leitura_notas()
-{
-    int nota;
-    do{
-    printf("Informe o desempenho do aluno(a):\n");
-    scanf("%d", &nota);
-    if (nota < 0 || nota > 100)
+    float nota = 0;
+    do
     {
-        printf("valor invalido, por favor insira um valor valido [0 - 100]\n");
-    }
-    }while(nota < 0 || nota > 100);
+        scanf("%f", &nota);
+        if (nota < 0 || nota > 100)
+            printf("nota invalida, por favor inserir valor valido[0-100]\n");
+    } while (nota < 0 || nota > 100);
     return nota;
 }

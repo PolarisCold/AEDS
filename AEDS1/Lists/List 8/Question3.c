@@ -18,36 +18,78 @@ o Se alguma escola obtiver uma média maior ou igual a 9.0, exiba uma mensagem b
 Requisitos Adicionais:
 • Valide as entradas para garantir que as notas estejam no intervalo permitido
 */
-
 #include <stdio.h>
-
-int leitura_alunos();
-int leitura_notas();
+// etapa 1
+void apresentacao();
+int qtd_escolas();
+int qtd_jurados();
+int nota_jurado();
 
 int main()
 {
-
+    apresentacao();
+    int escolas = qtd_Escolas();
+    for (int i = 1; i <= escolas; i++)
+    {
+        int jurados = qtd_jurados(i);
+        float media = 0;
+        for (int j = 0; j < jurados; j++)
+        {
+            media += nota_jurado(j+1);
+        }
+        media /= jurados;
+        if (media >= 9.0)
+        {
+            printf("Parabens, desfile de excelencia!\nMedia final de %.1f", media);
+        }
+        else
+        {
+            printf("A media da %d.a escola foi de %.1f pontos\n", i, media);
+        }
+    }
     return 0;
 }
 
-int leitura_alunos()
+void apresentacao()
 {
-    int qtd;
-    printf("\nPor favor, nos informe a quantidade de alunos.\n");
-    scanf("%d", &qtd);
-    return qtd;
+    printf("\nSistema de classificacao do desfile de carnaval!\n");
 }
 
-int leitura_notas()
+int qtd_escolas()
+{
+    int quantidade;
+    printf("Qual sera a quantidade de escolas que participarao?");
+    do
+    {
+        scanf("%d", &quantidade);
+        if (quantidade < 0)
+            printf("Por favor, digite uma quantidade valida[> 0]\n");
+    } while (quantidade < 0);
+    return quantidade;
+}
+
+int qtd_jurados(int N)
+{
+    int quantidade;
+    printf("qual sera a quantidade de jurados para a %d.a escola?", N);
+    do
+    {
+        scanf("%d", &quantidade);
+        if (quantidade <= 0)
+            printf("Por favor, digite uma quantidade valida[> 0]\n");
+    } while (quantidade <= 0);
+    return quantidade;
+}
+
+int nota_jurado(int N)
 {
     int nota;
-    do{
-    printf("Informe o desempenho do aluno(a):\n");
-    scanf("%d", &nota);
-    if (nota < 0 || nota > 100)
+    printf("Qual foi a nota do %d.o jurado?", N);
+    do
     {
-        printf("valor invalido, por favor insira um valor valido [0 - 100]\n");
-    }
-    }while(nota < 0 || nota > 100);
+        scanf("%d", &nota);
+        if (nota < 0 || nota > 10)
+            printf("nota invalida, por favor inserir valor valido [0-10]\n");
+    } while (nota < 0 || nota > 10);
     return nota;
 }
